@@ -1,20 +1,24 @@
 package tech.bts.cardgame;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Game {
 
-    enum State { OPEN, PLAYING }
+    public enum State { OPEN, PLAYING }
 
     private final Deck deck;
     private State state;
     private List<String> usernames;
+    private Map<String, Card> pickedCardByUsername;
 
     public Game(Deck deck) {
         this.deck = deck;
         this.state = State.OPEN;
         this.usernames = new ArrayList<>();
+        this.pickedCardByUsername = new HashMap<>();
     }
 
     public State getState() {
@@ -37,6 +41,31 @@ public class Game {
     public List<String> getPlayerNames() {
         return usernames;
     }
+
+    public Card pickCard(String username) {
+
+        if (!usernames.contains(username)) {
+            throw new PlayerNotInTheGameException();
+        }
+
+        Card pickedCard = pickedCardByUsername.get(username);
+        if (pickedCard != null) {
+            throw new CannotPick2CardsInARowException();
+        }
+
+        Card newPickedCard = deck.pickCard();
+
+        pickedCardByUsername.put(username, newPickedCard);
+
+        return newPickedCard;
+    }
+
+    public void discard(String username) {
+
+        pickedCardByUsername.remove(username);
+    }
+
+
 
 
 
