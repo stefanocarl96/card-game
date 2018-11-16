@@ -28,7 +28,7 @@ public class Deck {
 
     public void shuffle() {
 
-        System.out.println("Shuffling " + cards.size() + " cards");
+        //System.out.println("Shuffling " + cards.size() + " cards");
 
         Random random = new Random();
 
@@ -37,7 +37,7 @@ public class Deck {
             // pick a random index and swap it with card at index 'i'
             int randomIndex = random.nextInt(this.cards.size()); // random index
 
-            System.out.println("Swapping cards at indexes " + i + " and " + randomIndex);
+            //System.out.println("Swapping cards at indexes " + i + " and " + randomIndex);
 
             Card card1 = cards.get(i);
             Card card2 = cards.get(randomIndex);

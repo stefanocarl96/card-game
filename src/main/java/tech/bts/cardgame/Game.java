@@ -1,50 +1,40 @@
 package tech.bts.cardgame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 
-    private final Player player1;
-    private final Player player2;
     private final Deck deck;
+    private String state;
+    private List<String> usernames;
 
-    public final static int INITIAL_HAND_SIZE = 5;
-    public final static int FINAL_HAND_SIZE = 3;
-    public final static int NUM_CARDS_TO_DISCARD = INITIAL_HAND_SIZE - FINAL_HAND_SIZE;
-
-
-    public Game(Player player1, Player player2, Deck deck) {
-        this.player1 = player1;
-        this.player2 = player2;
+    public Game(Deck deck) {
         this.deck = deck;
+        this.state = "open";
+        this.usernames = new ArrayList<>();
     }
 
-    public void play() {
-
-        // Battle
-
-        // 1- deal the cards
-        Hand hand1 = deck.deal(FINAL_HAND_SIZE);
-        Hand hand2 = deck.deal(FINAL_HAND_SIZE);
-
-        //player1.setHand(hand1);
-        //player2.setHand(hand2);
-
-        // TODO: 2- discard the cards
-
-        // 3- fight with the cards
-        int result = compare(hand1, hand2);
-
-        System.out.println("hand 1: " + hand1);
-        System.out.println("hand 2: " + hand2);
-
-        // TODO: print the name of the player that wins this battle
-        System.out.println("The winner is: xxx");
+    public String getState() {
+        return state;
     }
+
+    public void join(String username) {
+        usernames.add(username);
+    }
+
+    public List<String> getPlayerNames() {
+        return usernames;
+    }
+
+
+
 
     /**
      * Returns a negative integer, zero, or a positive integer
      * as the first hand is less than, equal to,
      * or greater than the second hand.
-     */
+     *
     private int compare(Hand hand1, Hand hand2) {
 
         int points1 = 0;
@@ -63,4 +53,5 @@ public class Game {
 
         return points1 - points2;
     }
+     */
 }
