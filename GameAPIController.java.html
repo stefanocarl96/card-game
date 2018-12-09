@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>GameAPIController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GameAPIController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">tech.bts.cardgame.controller</span><span class="s0">;</span>
+
+import <span class="s1">org.springframework.beans.factory.annotation.Autowired</span><span class="s0">;</span>
+import <span class="s1">org.springframework.web.bind.annotation.*</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.model.Card</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.model.Game</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.model.GameUser</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.service.GameService</span><span class="s0">;</span>
+
+import <span class="s1">java.util.Collection</span><span class="s0">;</span>
+import <span class="s1">java.util.List</span><span class="s0">;</span>
+
+import static <span class="s1">org.springframework.web.bind.annotation.RequestMethod.*</span><span class="s0">;</span>
+
+<span class="s1">@RestController</span>
+@RequestMapping(path = <span class="s2">&quot;/api/games&quot;</span><span class="s1">)</span>
+<span class="s0">public class </span><span class="s1">GameController {</span>
+
+    <span class="s0">private </span><span class="s1">GameService gameService</span><span class="s0">;</span>
+
+    <span class="s1">@Autowired</span>
+    <span class="s0">public </span><span class="s1">GameController(GameService gameService) {</span>
+        <span class="s0">this</span><span class="s1">.gameService = gameService</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    @RequestMapping(method = RequestMethod.POST<span class="s0">, </span><span class="s1">path = </span><span class="s2">&quot;/games&quot;</span><span class="s1">)</span>
+    <span class="s0">public long </span><span class="s1">createGame() {</span>
+
+        Game game = gameService.createGame()<span class="s0">;</span>
+        return <span class="s1">game.getId()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    @RequestMapping(method = RequestMethod.GET<span class="s0">, </span><span class="s1">path = </span><span class="s2">&quot;/games/API&quot;</span><span class="s1">)</span>
+    <span class="s0">public </span><span class="s1">Collection getallGames() {</span>
+
+        <span class="s0">return </span><span class="s1">gameService.getAllGames()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    @RequestMapping(method = RequestMethod.PUT<span class="s0">, </span><span class="s1">path = </span><span class="s2">&quot;/games/API/{gameId}/join&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">joinGame(@RequestBody GameUser gameUser</span><span class="s0">, </span><span class="s1">@PathVariable </span><span class="s0">long </span><span class="s1">gameId) {</span>
+
+        gameUser.setGameId(gameId)<span class="s0">;</span>
+        <span class="s1">gameService.joinGame(gameUser)</span><span class="s0">;</span>
+
+
+    <span class="s1">@RequestMapping(method = RequestMethod.PUT</span><span class="s0">, </span><span class="s1">path = </span><span class="s2">&quot;/games/API/{gameId}/pick&quot;</span><span class="s1">)</span>
+    <span class="s0">public </span><span class="s1">Card pickCard(@RequestBody GameUser gameUser</span><span class="s0">, </span><span class="s1">@PathVariable </span><span class="s0">long </span><span class="s1">gameId) {</span>
+
+        gameUser.setGameId(gameId)<span class="s0">;</span>
+        return <span class="s1">gameService.pickCard(gameUser)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+}</pre>
+</body>
+</html>

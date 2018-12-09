@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>GameService.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GameService.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">tech.bts.cardgame.service</span><span class="s0">;</span>
+
+import <span class="s1">org.springframework.beans.factory.annotation.Autowired</span><span class="s0">;</span>
+import <span class="s1">org.springframework.stereotype.Service</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.model.Card</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.model.Deck</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.model.Game</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.model.GameUser</span><span class="s0">;</span>
+import <span class="s1">tech.bts.cardgame.repository.GameRepository</span><span class="s0">;</span>
+
+<span class="s1">@Service</span>
+<span class="s0">public class </span><span class="s1">GameService {</span>
+
+    <span class="s0">private </span><span class="s1">GameRepository gameRepo</span><span class="s0">;</span>
+
+    <span class="s1">@Autowired</span>
+    <span class="s0">public </span><span class="s1">GameService(GameRepository gameRepo) {</span>
+        <span class="s0">this</span><span class="s1">.gameRepo = gameRepo</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Game createGame() {</span>
+
+        Deck  = <span class="s0">new </span><span class="s1">Deck()</span><span class="s0">;</span>
+        <span class="s1">deck.generate()</span><span class="s0">;</span>
+        <span class="s1">deck.shuffle()</span><span class="s0">;</span>
+        <span class="s1">Game game = </span><span class="s0">new </span><span class="s1">Game(deck)</span><span class="s0">;</span>
+
+        <span class="s1">gameRepo.create(game)</span><span class="s0">;</span>
+
+        return <span class="s1">game</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">joinGame(GameUser gameUser) {</span>
+
+        Game game = gameRepo.getById(gameUser.getGameId())<span class="s0">;</span>
+        <span class="s1">game.join(gameUser.getUsername())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Card pickCard(GameUser gameUser) {</span>
+
+        Game game = gameRepo.getById(gameUser.getGameId())<span class="s0">;</span>
+        return <span class="s1">game.pickCard(gameUser.getUsername())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Collection&lt;Game&gt; getAllGames() {</span>
+
+        <span class="s0">return </span><span class="s1">gameRepo.getAll()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Gsme getGameByid (</span><span class="s0">long </span><span class="s1">id)</span>
+        <span class="s0">return </span><span class="s1">gameRepo.getById()</span><span class="s0">;</span>
+
+<span class="s1">}</span></pre>
+</body>
+</html>

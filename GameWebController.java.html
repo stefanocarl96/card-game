@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>GameWebController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GameWebController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">tech.bts.cardgame</span><span class="s0">;</span>
+
+import <span class="s1">java.util.Collections</span><span class="s0">;</span>
+
+import static <span class="s1">jdk.nashorn.internal.runtime.PropertyDescriptor.GET</span><span class="s0">;</span>
+
+<span class="s1">@RestController</span>
+<span class="s0">public class </span><span class="s1">GameWebController {</span>
+
+    <span class="s0">private </span><span class="s1">GameService gameService</span><span class="s0">;</span>
+
+    <span class="s1">@Autowired</span>
+    <span class="s0">public </span><span class="s1">GameWebController(GameService gameService) {</span>
+        <span class="s0">this</span><span class="s1">.gameService = gameService</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    @RequestMapping (method = GET)
+    <span class="s0">public </span><span class="s1">String getAllGames() {</span>
+
+        <span class="s0">return </span><span class="s1">buildGameList()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+        String result = <span class="s2">&quot;&lt;h1&gt;List of games&lt;/h1&gt;&quot;</span><span class="s0">;</span>
+        <span class="s1">result += </span><span class="s2">&quot;&lt;p&gt;a href=</span><span class="s0">\&quot;</span><span class="s2">/games/create&gt;</span>
+        <span class="s1">Collections&lt;Game&gt; games = gameService.getAllGames()</span><span class="s0">;</span>
+       for <span class="s1">()or (Game game : games) {            result += </span><span class="s2">&quot;&lt;p&gt;game &quot; </span><span class="s1">+ game.getId() + </span><span class="s2">&quot; is &quot; </span><span class="s1">+ game.getState() + </span><span class="s2">&quot;:&quot; </span><span class="s1">+ game.getPlayerNames() + </span><span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="s0">;</span>
+        <span class="s1">}</span>
+       result += <span class="s2">&quot;&lt;p&gt;&lt;a target=blank href=</span><span class="s0">\&quot;</span><span class="s2">/games/&quot; </span><span class="s1">+ game.getid() + </span><span class="s2">&quot;</span><span class="s0">\&quot;</span><span class="s2">Game &quot; </span><span class="s1">+ game.getId() + </span><span class="s2">&quot;&lt;/a&gt; is &quot;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+<span class="s1">}</span>
+
+   @RequestMapping(method = GET<span class="s0">, </span><span class="s1">path = </span><span class="s2">&quot;/{gameId}&quot;</span><span class="s1">)</span>
+   <span class="s0">public </span><span class="s1">String getGameById(@PathVariable </span><span class="s0">long </span><span class="s1">gameId) {</span>
+
+
+   Game game = gameService.getGameById(gameId)<span class="s0">;</span>
+
+   <span class="s1">String result = </span><span class="s2">&quot;&quot;</span><span class="s0">;</span>
+
+   <span class="s1">result += </span><span class="s2">&quot;&lt;h1&gt;Game&quot; </span><span class="s1">+ game.getId) + </span><span class="s2">&quot;&lt;/h1&gt;&quot;</span><span class="s0">;</span>
+
+   <span class="s1">result += </span><span class="s2">&quot;&lt;p&gt;State&quot; </span><span class="s1">+ game.getState() + </span><span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="s0">;</span>
+
+   <span class="s1">result += </span><span class="s2">&quot;&lt;p&gt;Players&quot; </span><span class="s1">+ game.getPlayers() + </span><span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="s0">;</span>
+
+   if <span class="s1">(game</span><span class="s0">,</span><span class="s1">getstate() = Game.OPEN) {</span>
+
+     result = <span class="s2">&quot;&lt;a href=</span><span class="s0">\&quot;</span><span class="s2">games/&quot; </span><span class="s1">+ game.Id() + </span><span class="s2">&quot;</span><span class="s0">\&quot;</span><span class="s2">&gt;Join game&lt;/a&gt;&quot;</span><span class="s0">;</span>
+   <span class="s1">}</span>
+   <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">private </span><span class="s1">string buildingGameList(){</span>
+        String result = <span class="s2">&quot;&lt;h1&gt; The List of the games &lt;/h1&gt;&quot;</span><span class="s0">;</span>
+        <span class="s1">result = </span><span class="s2">&quot;&lt;ul&gt;&lt;href=</span><span class="s0">\&quot;</span><span class="s2">/games/create</span><span class="s0">\&quot;</span><span class="s2">&gt;Create game&gt;&lt;/ul&gt;&quot;</span><span class="s0">;</span>
+
+        for<span class="s1">(Game : game.getAllGames()){</span>
+
+
+        result = <span class="s2">&quot;&lt;href=</span><span class="s0">\&quot;</span><span class="s2">/games/&quot;</span>
+        <span class="s1">+ game.Id()+</span><span class="s2">&quot; &gt;game &quot; </span><span class="s1">+ game.getId()+</span><span class="s2">&quot;&lt;/a&gt;&quot;</span><span class="s1">+ </span><span class="s2">&quot;is&quot; </span><span class="s1">+game.state()</span><span class="s0">;</span>
+
+
+
+        return <span class="s1">result</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+
+
+
+
+</pre>
+</body>
+</html>
